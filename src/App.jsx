@@ -5,6 +5,7 @@ import './App.css'
 
 function App() {
   const [validationCode, setValidationCode] = useState("");
+  const [error, setError] = useState("")
   useEffect(() => {
     let ac = new AbortController();
     // setTimeout(() => {
@@ -22,8 +23,9 @@ function App() {
       })
       .catch(err => {
         console.log(err);
+        setError(err)
       });
-  });
+  }, []);
 
   const handleSubmit = () => console.log('submitted')
 
@@ -32,7 +34,8 @@ function App() {
        <ChakraProvider>
        <Flex flexDir='column' w='100%' pb={{ base: '4', sm: '8' }} px={{ base: '1', sm: '8' }}>
           <Flex flexDir='column' p={4} justifyContent='center' alignItems='center' pb={8} mb={8}>
-            <Text my='6'>{`We've sent a verification code via SMS to phone, please enter.`}</Text>
+            <Text my='6'>{`Error. ${error}`}</Text>
+            <Text my='6'>{`validationCode. ${validationCode}`}</Text>
             <HStack>
               <PinInput value={validationCode} placeholder='' onChange={(e) => { setValidationCode(e) }} otp autoFocus>
                 <PinInputField />
