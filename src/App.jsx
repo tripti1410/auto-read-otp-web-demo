@@ -6,9 +6,9 @@ import './App.css'
 function App() {
   const [validationCode, setValidationCode] = useState("");
   const [error, setError] = useState("")
-  let ac = new AbortController();
+  const [successMsg, setSuccessMsg]= useState("")
   useEffect(() => {
-    
+    let ac = new AbortController();
     navigator.credentials
       .get({
         otp: { transport: ["sms"] },
@@ -23,17 +23,16 @@ function App() {
       });
   });
 
-  const handleSubmit = () => {
-    ac.abort();
-    alert( 'otp submitted successfully', validationCode)
-  }
+  const handleSubmit = () => setSuccessMsg("***successfully set***")
+  
 
   return (
     <>
        <ChakraProvider>
        <Flex flexDir='column' w='100%' pb={{ base: '4', sm: '8' }} px={{ base: '1', sm: '8' }}>
           <Flex flexDir='column' p={4} justifyContent='center' alignItems='center' pb={8} mb={8}>
-          <Text my='6'> This is a demo website to read the OTP in the mobile web. </Text>
+          {/* <Text my='6'> This is a demo website to read the OTP in the mobile web. </Text> */}
+          <Text my='6'> Success msg appear here: {successMsg}</Text>
             <Text my='3'>{`Error. ${error}`}</Text>
             <Text my='6'>{`validationCode. ${validationCode}`}</Text>
             <HStack>
