@@ -16,14 +16,14 @@ function App() {
       })
       .then(otp => {
         setValidationCode(otp.code);
+        handleSubmit(otp.code)
       })
       .catch(err => {
         console.log(err);
         setError(err)
       });
   });
-
-  const handleSubmit = () => setSuccessMsg("***successfully set***")
+  const handleSubmit = (otp) => setSuccessMsg("***successfully set***", otp)
   
 
   return (
