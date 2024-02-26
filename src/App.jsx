@@ -6,12 +6,9 @@ import './App.css'
 function App() {
   const [validationCode, setValidationCode] = useState("");
   const [error, setError] = useState("")
+  let ac = new AbortController();
   useEffect(() => {
-    let ac = new AbortController();
-    // setTimeout(() => {
-    //   // abort after 10 minutes
-    //   ac.abort();
-    // }, 10 * 60 * 1000);
+    
     navigator.credentials
       .get({
         otp: { transport: ["sms"] },
@@ -19,26 +16,28 @@ function App() {
       })
       .then(otp => {
         setValidationCode(otp.code);
-        alert("your otp code is", otp.code);
       })
       .catch(err => {
         console.log(err);
         setError(err)
       });
-  }, []);
+  });
 
-  const handleSubmit = () => console.log('submitted')
+  const handleSubmit = () => {
+    ac.abort();
+    alert( 'otp submitted successfully', validationCode)
+  }
 
   return (
     <>
        <ChakraProvider>
        <Flex flexDir='column' w='100%' pb={{ base: '4', sm: '8' }} px={{ base: '1', sm: '8' }}>
           <Flex flexDir='column' p={4} justifyContent='center' alignItems='center' pb={8} mb={8}>
-            <Text my='6'>{`Error. ${error}`}</Text>
+          <Text my='6'> This is a demo website to read the OTP in the mobile web. </Text>
+            <Text my='3'>{`Error. ${error}`}</Text>
             <Text my='6'>{`validationCode. ${validationCode}`}</Text>
             <HStack>
               <PinInput value={validationCode} placeholder='' onChange={(e) => { setValidationCode(e) }} otp autoFocus>
-                <PinInputField />
                 <PinInputField />
                 <PinInputField />
                 <PinInputField />
