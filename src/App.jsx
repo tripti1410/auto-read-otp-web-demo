@@ -26,7 +26,7 @@ function App() {
         setError(err)
       });
     }
-  }, []);
+  });
   const handleSubmit = () => alert("***successfully set***")
   return (
     <>
