@@ -8,23 +8,29 @@ function App() {
   const [error, setError] = useState("")
   // const [successMsg, setSuccessMsg]= useState("")
   useEffect(() => {
-    console.log("Inside useEffect")
-  
-      console.log("Inside useEffect feature detect")
-    let ac = new AbortController();
-    navigator.credentials
-      .get({
-        otp: { transport: ["sms"] },
-        signal: ac.signal
-      })
-      .then(otp => {
-        setValidationCode(otp.code);
-        handleSubmit()
-      })
-      .catch(err => {
-        console.log(err);
-        setError(err)
-      });
+    if ('OTPCredential' in window) {
+      console.log("+....")
+      
+      
+        // const input = document.querySelector('input[autocomplete="one-time-code"]');
+        // if (!input) return;
+        const ac = new AbortController();
+        // const form = input.closest('form');
+        // if (form) {
+        //   form.addEventListener('submit', e => {
+        //     ac.abort();
+        //   });
+        // }
+        navigator.credentials.get({
+          otp: { transport:['sms'] },
+          signal: ac.signal
+        }).then(otp => {
+          setValidationCode(otp.code);
+        }).catch(err => {
+          console.log(err);
+          setError(err.message)
+        });
+    }
   });
   const handleSubmit = () => alert("***successfully set***")
   return (
