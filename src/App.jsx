@@ -8,6 +8,7 @@ function App() {
   const [error, setError] = useState("")
   const [successMsg, setSuccessMsg]= useState("")
   useEffect(() => {
+    if ('OTPCredential' in window) {
     let ac = new AbortController();
     navigator.credentials
       .get({
@@ -22,6 +23,7 @@ function App() {
         console.log(err);
         setError(err)
       });
+    }
   });
   const handleSubmit = (otp) => setSuccessMsg("***successfully set***", otp)
   
