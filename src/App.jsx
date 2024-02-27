@@ -8,7 +8,9 @@ function App() {
   const [error, setError] = useState("")
   // const [successMsg, setSuccessMsg]= useState("")
   useEffect(() => {
+    console.log("Inside useEffect")
     if ('OTPCredential' in window) {
+      console.log("Inside useEffect feature detect")
     let ac = new AbortController();
     navigator.credentials
       .get({
@@ -17,17 +19,15 @@ function App() {
       })
       .then(otp => {
         setValidationCode(otp.code);
-        // handleSubmit(otp.code)
+        handleSubmit()
       })
       .catch(err => {
         console.log(err);
         setError(err)
       });
     }
-  });
-  const handleSubmit = (otp) => alert("***successfully set***", otp)
-  
-
+  }, []);
+  const handleSubmit = () => alert("***successfully set***")
   return (
     <>
        <ChakraProvider>
@@ -46,10 +46,7 @@ function App() {
                 <PinInputField />
               </PinInput>
             </HStack>
-            <Flex mb='6'>
-              <Text as='h3'>I didn&apos;t receive a code,&nbsp;</Text>
-              <Button variant='link' colorScheme='brand'>resend code</Button>
-            </Flex>
+           
             <Button colorScheme='blue' color='white' mt='6' w='100%' borderRadius='4px' onClick={() => handleSubmit()}>
               VERIFY
             </Button>
