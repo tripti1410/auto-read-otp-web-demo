@@ -9,7 +9,7 @@ function App() {
   // const [successMsg, setSuccessMsg]= useState("")
   useEffect(() => {
     console.log("Inside useEffect")
-    if ('OTPCredential' in window) {
+  
       console.log("Inside useEffect feature detect")
     let ac = new AbortController();
     navigator.credentials
@@ -25,7 +25,6 @@ function App() {
         console.log(err);
         setError(err)
       });
-    }
   });
   const handleSubmit = () => alert("***successfully set***")
   return (
