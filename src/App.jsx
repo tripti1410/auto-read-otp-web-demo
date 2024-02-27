@@ -8,19 +8,8 @@ function App() {
   const [error, setError] = useState("")
   // const [successMsg, setSuccessMsg]= useState("")
   useEffect(() => {
-    if ('OTPCredential' in window) {
       console.log("+....")
-      
-      
-        // const input = document.querySelector('input[autocomplete="one-time-code"]');
-        // if (!input) return;
         const ac = new AbortController();
-        // const form = input.closest('form');
-        // if (form) {
-        //   form.addEventListener('submit', e => {
-        //     ac.abort();
-        //   });
-        // }
         navigator.credentials.get({
           otp: { transport:['sms'] },
           signal: ac.signal
@@ -30,7 +19,6 @@ function App() {
           console.log(err);
           setError(err.message)
         });
-    }
   });
   const handleSubmit = () => alert("***successfully set***")
   return (
@@ -51,7 +39,6 @@ function App() {
                 <PinInputField />
               </PinInput>
             </HStack>
-           
             <Button colorScheme='blue' color='white' mt='6' w='100%' borderRadius='4px' onClick={() => handleSubmit()}>
               VERIFY
             </Button>
