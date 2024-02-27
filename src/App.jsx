@@ -6,7 +6,7 @@ import './App.css'
 function App() {
   const [validationCode, setValidationCode] = useState("");
   const [error, setError] = useState("")
-  const [successMsg, setSuccessMsg]= useState("")
+  // const [successMsg, setSuccessMsg]= useState("")
   useEffect(() => {
     if ('OTPCredential' in window) {
     let ac = new AbortController();
@@ -17,7 +17,7 @@ function App() {
       })
       .then(otp => {
         setValidationCode(otp.code);
-        handleSubmit(otp.code)
+        // handleSubmit(otp.code)
       })
       .catch(err => {
         console.log(err);
@@ -25,7 +25,7 @@ function App() {
       });
     }
   });
-  const handleSubmit = (otp) => setSuccessMsg("***successfully set***", otp)
+  const handleSubmit = (otp) => alert("***successfully set***", otp)
   
 
   return (
@@ -34,11 +34,11 @@ function App() {
        <Flex flexDir='column' w='100%' pb={{ base: '4', sm: '8' }} px={{ base: '1', sm: '8' }}>
           <Flex flexDir='column' p={4} justifyContent='center' alignItems='center' pb={8} mb={8}>
           {/* <Text my='6'> This is a demo website to read the OTP in the mobile web. </Text> */}
-          <Text my='6'> Success msg appear here: {successMsg}</Text>
+          {/* <Text my='6'> Success msg appear here: {successMsg}</Text> */}
             <Text my='3'>{`Error. ${error}`}</Text>
             <Text my='6'>{`validationCode. ${validationCode}`}</Text>
             <HStack>
-              <PinInput value={validationCode} placeholder='' onChange={(e) => { setValidationCode(e) }} otp autoFocus>
+              <PinInput value={validationCode} placeholder='' mask onChange={(e) => { setValidationCode(e) }} otp autoFocus>
                 <PinInputField />
                 <PinInputField />
                 <PinInputField />
